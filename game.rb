@@ -5,16 +5,16 @@ class Game
   def self.play_game
     puts "How many people will be playing?"
     number_of_players = gets.chomp.to_i
-    puts "Do you want to play with an AI? (Y/n)"
-    have_ai = gets.chomp
+    puts "Do you want to play with an AI? (y/n)"
+    have_ai = gets.chomp.downcase
 
-    until have_ai == "Y" || have_ai == "n"
+    until have_ai == "y" || have_ai == "n"
       puts "Great, but you didn't answer the question"
-      puts "Do you want to play with an AI? (Y/n)"
+      puts "Do you want to play with an AI? (y/n)"
       have_ai = gets.chomp
     end
 
-    ai = (have_ai == "Y") ? true : false
+    ai = (have_ai == "y") ? true : false
 
     players = Player.get_players(number_of_players, ai)
     game = Game.new(players)
@@ -23,12 +23,11 @@ class Game
 
   attr_reader :dictionary
 
-  LOSER_WORD = "GH"
+  LOSER_WORD = "GHOST"
 
   def initialize(players)
     @players = players
     @dictionary = []
-    @fragment = String.new
     populate_dictionary
     @current_player = @players.first
     @players.each{ |p| p.round_dictionary = @dictionary }

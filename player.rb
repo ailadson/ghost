@@ -4,15 +4,15 @@ class Player
   attr_reader :name
   attr_accessor :losses, :round_dictionary
 
-  def self.get_players(num, ai = false)
+  def self.get_players(number_of_players, ai = false)
     players = []
-    num -= 1 if ai
-    1.upto(num) do |idx|
+    number_of_players -= 1 if ai
+    1.upto(number_of_players) do |idx|
       puts "Player #{idx}, what is your name?"
       name = gets.chomp
       players << Player.new(name)
     end
-    players << AI_Player.new if ai
+    players << AI_Player.new(number_of_players + 1) if ai
   end
 
   def initialize(name)
